@@ -1,8 +1,8 @@
 require.config({
   paths: {
-    'text': '../tools/text'
+    'text': '../tools/text',
   },
-  baseUrl: 'src'
+  baseUrl: 'src',
 });
 
 require([

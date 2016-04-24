@@ -9,12 +9,22 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+
+app.get('/', function(req, res) {
+  res.sendFile(__dirname + '/public/index.html');
+});
+
+io.on('connection', function(socket){
+  console.log('a user connected');
+});
 
 var serialport = require('serialport');
 SerialPort = serialport.SerialPort;
 portName = process.argv[2];
 
-app.listen(3000, function () {
+http.listen(3000, function () {
   console.log('Example app listening on port 3000!');
   console.log(myPort.options.baudRate);
 });
@@ -28,8 +38,8 @@ var myPort = new SerialPort(portName, {
 myPort.on('data', onData);
 
 function onData(data) {
-  console.log(data);
-}
+  //console.log(data);
+};
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
